@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="recommended_profile"
+            type="com.deazzle.deazzleproject.data.db.entities.ProfilesModel" />
+
+
+        <variable
+            name="buttonClick"
+            type="com.deazzle.deazzleproject.data.adapters.RecommendedProfileAdapter.OnRecyclerButtonClickedListener" />
+
+
+
+    </data>
+
+   <androidx.cardview.widget.CardView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       app:cardCornerRadius="12dp"
+       android:layout_marginBottom="5dp"
+       >
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           >
+
+           <RelativeLayout
+               android:layout_above="@id/bottom_buttons"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="vertical"
+               >
+
+               <ImageView
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:adjustViewBounds="true"
+                   android:scaleType="fitXY"
+                   app:profile_pic_url="@{recommended_profile.profileUrl}"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_margin="15dp"
+                   android:fontFamily="@font/stamp_font"
+                   android:textAlignment="viewEnd"
+                   android:hint="status"
+                   android:textStyle="bold"
+                   android:text="@{recommended_profile.liked}"
+                   android:textColor="@color/white"
+                   android:layout_alignParentEnd="true"
+                   android:elevation="30dp"
+                   android:textSize="30sp" />
+
+
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentBottom="true"
+                   android:orientation="horizontal"
+                   android:elevation="30dp"
+                   >
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="10dp"
+                       android:fontFamily="@font/abeezee"
+                       android:hint="Name"
+                       android:textStyle="bold"
+                       android:text="@{recommended_profile.firstName}"
+                       android:textColor="@color/white"
+                       android:textSize="40sp" />
+
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_margin="10dp"
+                       android:fontFamily="@font/abeezee"
+                       android:hint="age"
+                       android:textStyle="bold"
+                       android:text="@{recommended_profile.dob}"
+                       android:textColor="@color/white"
+                       android:elevation="30dp"
+                       android:textSize="20sp" />
+
+               </LinearLayout>
+
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="70dp"
+                   android:layout_alignParentTop="true"
+                   android:elevation="20dp"
+                   android:background="@drawable/top_right_dark_gradient"/>
+
+               <View
+                   android:layout_width="match_parent"
+                   android:layout_height="130dp"
+                   android:layout_alignParentBottom="true"
+                   android:elevation="20dp"
+                   android:background="@drawable/bottom_dark_gradient"/>
+
+
+
+
+           </RelativeLayout>
+
+
+           <LinearLayout
+               android:id="@+id/bottom_buttons"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentBottom="true"
+               android:orientation="horizontal"
+               android:layout_margin="5dp"
+
+               >
+
+               <RelativeLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:visibility="@{recommended_profile.liked.charAt(0)=='D' ? View.GONE : View.VISIBLE}"
+                   android:padding="20dp"
+                   android:clipChildren="false"
+                   android:clipToPadding="false"
+                   >
+
+                   <com.google.android.material.floatingactionbutton.FloatingActionButton
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:background="?android:attr/selectableItemBackground"
+                       android:src="@drawable/ic_no"
+                       android:layout_centerHorizontal="true"
+                       app:rippleColor="@color/design_default_color_error"
+                       android:padding="0dp"
+                       android:tint="@color/white"
+                       app:elevation="10dp"
+                       android:layout_marginBottom="7dp"
+                       android:clickable="true"
+                       android:onClick="@{()-> buttonClick.onDisLikedButtonClicked(recommended_profile.uuid,recommended_profile)}"
+                       android:focusable="true" />
+
+
+               </RelativeLayout>
+
+               <RelativeLayout
+                   android:layout_width="0dp"
+                   android:layout_weight="1"
+                   android:layout_height="wrap_content"
+                   android:padding="20dp"
+                   android:visibility="@{recommended_profile.liked.charAt(0)=='A' ? View.GONE : View.VISIBLE}"
+                   android:clipChildren="false"
+                   android:clipToPadding="false"
+                   >
+
+                   <com.google.android.material.floatingactionbutton.FloatingActionButton
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:background="?android:attr/selectableItemBackground"
+                       android:src="@drawable/ic_yes"
+                       android:layout_centerHorizontal="true"
+                       app:rippleColor="@color/design_default_color_error"
+                       android:padding="0dp"
+                       app:tint="@color/white"
+                       app:backgroundTint="@color/success_green"
+                       android:elevation="5dp"
+                       android:layout_marginBottom="7dp"
+                       android:onClick="@{() -> buttonClick.onLikedButtonClicked(recommended_profile.uuid,recommended_profile)}"
+                       android:clickable="true"
+                       android:focusable="true"
+                       />
+
+
+               </RelativeLayout>
+
+
+           </LinearLayout>
+
+
+
+
+       </RelativeLayout>
+
+   </androidx.cardview.widget.CardView>
+
+</layout>
